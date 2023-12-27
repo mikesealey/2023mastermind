@@ -43,5 +43,7 @@ number_colour_array = ["red", "green", "yellow", "blue", "cyan", "magenta"]
 var1 = number_colour_array[0]
 var2 = number_colour_array[1]
 
-puts "This is #{var1} with #{var2}".colorize(:"#{var1}" ).colorize( :background => :"#{var2}")
-puts "This is #{var1} text with #{var2} background".colorize(:color => :white, :background => :"#{var2}")
+
+random_number_array = [1,2,3,4,5,6]
+
+random_number_array.each { | x | puts "This is white with #{number_colour_array[x-1]}".colorize(:white ).colorize( :background => :"#{number_colour_array[x-1]}")}
