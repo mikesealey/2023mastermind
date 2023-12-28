@@ -3,6 +3,9 @@ require "colorized_string"
 
 def playGame()
     puts "Hello!"
+    # greet message
+    # generate code
+    # while tries < 12 and guess != from code
 end
 
 #playGame()
@@ -11,16 +14,22 @@ end
 def digit_generator()
     {
         number: rand(6),
+        name: "",
         colour: ""
     }
 end
 
 # Create a code by running random number generator 6 times
 def code_generator()
-    #puts "invoked"
-    return []
+    code = []
+    6.times do
+        code.push(digit_generator())
+    end
+    return code
 end
 
+my_code = code_generator()
+#puts my_code
 # This function will take the array of number-objects and populate the "colour" key with an according value.
 def numbers_to_colours(number)
 
@@ -38,12 +47,5 @@ test = ":color => :white, background => :red"
 
 number_colour_array = ["red", "green", "yellow", "blue", "cyan", "magenta"]
 
-#puts String.colors
 
-var1 = number_colour_array[0]
-var2 = number_colour_array[1]
-
-
-random_number_array = [1,2,3,4,5,6]
-
-random_number_array.each { | x | puts "This is white with #{number_colour_array[x-1]}".colorize(:white ).colorize( :background => :"#{number_colour_array[x-1]}")}
+my_code.each { | x | puts x[:number] }
