@@ -1,6 +1,33 @@
+require "colorize"
+require "colorized_string"
+
 # Generate Code
 def generate_code()
     return [rand(6), rand(6), rand(6), rand(6)]
+end
+
+# takes an input and returns a coloured bar as a string
+def numbers_to_colours(element)
+    case element
+    when 0
+        return ColorizedString["  0  "].white.on_red
+    when 1
+        return ColorizedString["  1  "].white.on_green
+    when 2
+        return ColorizedString["  2  "].white.on_yellow
+    when 3
+        return ColorizedString["  3  "].white.on_blue
+    when 4
+        return ColorizedString["  4  "].white.on_cyan
+    when 5
+        return ColorizedString["  5  "].white.on_magenta
+    when "✔"
+        return ColorizedString["  ✔  "].white.on_green.blink
+    when "="
+        return ColorizedString["  =  "].white.on_yellow.blink
+    when "✗"
+        return ColorizedString["  ✗  "].white.on_red.blink
+    end
 end
 
 # Compare code to guess
@@ -16,12 +43,15 @@ def code_guesser(generated_array, guess_array)
             response_array[index] = "✗"
         end
         }
-    print guess_array, "\n", generated_array, "\n", response_array, "\n"
+
+        # Convert array to colours here
+
+    print response_array, "\n"
     return response_array
 end
 
 def get_player_name()
-    puts "Welcome to Mastermind. Please enter your name: "
+    print "Welcome to Mastermind. Please enter your name: "
     player_name = gets.chomp
 # TODO sanitize this: length/characters etc
 end
@@ -34,6 +64,10 @@ def get_player_guess(player_name)
     # TODO sanitize this: length/characters etc
     return this_guess
 end
+
+
+
+
 
 def play_game()
     # Game start
@@ -49,9 +83,13 @@ def play_game()
     # Max number of guesses is 12
     # 
     while user_guess_array.length <= 12
-        puts "user guess array length is #{user_guess_array.length}"
-        puts "user guess array last entry is #{user_guess_array.last}"
-        puts "computer generated array is    #{generated_array}"
+        # puts "#{12 - user_guess_array.length} guesses remaining"
+        if user_guess_array.length > 0
+            # Convert array to colours here
+            coloured_user_guess = user_guess_array.last.each {|element| numbers_to_colours(element) }
+            print coloured_user_guess, "here", "\n"
+        end
+        # puts "computer generated array is    #{generated_array}"
 
 
         if user_guess_array.length === 12
