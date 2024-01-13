@@ -45,6 +45,7 @@ def code_guesser(generated_array, guess_array)
         }
 
         # Convert array to colours here
+        
 
     print response_array, "\n"
     return response_array
@@ -103,8 +104,15 @@ def play_game()
             code_guesser(generated_array, user_guess_array.last)
         end
     end
-    puts "GAME OVER"
+    user_guess_array.each_with_index {|guess, index| puts "        guess #{index + 1} #{guess}"}
+    print "Computer's code #{generated_array}"
+    print "GAME OVER"
     # Consider "Play again option"
 end
 
-play_game()
+#play_game()
+
+puts numbers_to_colours(1)
+puts numbers_to_colours("0")
+puts numbers_to_colours("1")
+puts numbers_to_colours(0)
