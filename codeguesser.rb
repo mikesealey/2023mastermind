@@ -27,7 +27,16 @@ def numbers_to_colours(element)
         return ColorizedString["  =  "].white.on_yellow.blink
     when "✗"
         return ColorizedString["  ✗  "].white.on_red.blink
+    else
+        return element
     end
+end
+
+# Takes an array and prints each value on the same line
+# circumnavigates but when printing array whole fails to display properly
+def print_coloured_array(array)
+    array.each{|element| print element}
+    print "\n"
 end
 
 # Compare code to guess
@@ -44,11 +53,13 @@ def code_guesser(generated_array, guess_array)
         end
         }
 
-        # Convert array to colours here
-        
+    # Convert array to colours here
+    coloured_response_array = response_array.map {|element| numbers_to_colours(element)}
 
-    print response_array, "\n"
-    return response_array
+
+
+    print_coloured_array(coloured_response_array)
+    return coloured_response_array
 end
 
 def get_player_name()
@@ -58,7 +69,7 @@ def get_player_name()
 end
 
 def get_player_guess(player_name)
-    puts "Please enter your guess"
+    puts "#{player_name}, please enter your guess"
     this_guess = gets.chomp
     this_guess = this_guess.split(//)
     this_guess = this_guess.map { |digit | digit.to_i }
@@ -82,13 +93,12 @@ def play_game()
     user_guess_array = Array.new
     
     # Max number of guesses is 12
-    # 
     while user_guess_array.length <= 12
         # puts "#{12 - user_guess_array.length} guesses remaining"
         if user_guess_array.length > 0
             # Convert array to colours here
-            coloured_user_guess = user_guess_array.last.each {|element| numbers_to_colours(element) }
-            print coloured_user_guess, "here", "\n"
+            coloured_user_guess = user_guess_array.last.map {|element| numbers_to_colours(element)}
+            print_coloured_array(coloured_user_guess)
         end
         # puts "computer generated array is    #{generated_array}"
 
@@ -104,15 +114,17 @@ def play_game()
             code_guesser(generated_array, user_guess_array.last)
         end
     end
-    user_guess_array.each_with_index {|guess, index| puts "        guess #{index + 1} #{guess}"}
-    print "Computer's code #{generated_array}"
+
+    #Colourize Array of Guess Array
+    user_guess_array.each_with_index {| guess, index |
+        coloured_guess = guess.map {| element| numbers_to_colours(element)}
+        print_coloured_array(coloured_guess)
+        code_guesser(generated_array, guess)
+    }
     print "GAME OVER"
     # Consider "Play again option"
 end
 
-#play_game()
+play_game()
 
-puts numbers_to_colours(1)
-puts numbers_to_colours("0")
-puts numbers_to_colours("1")
-puts numbers_to_colours(0)
+
